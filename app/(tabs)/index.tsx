@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, View, TouchableOpacity, Image, ImageBackground, ScrollView } from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity, Image, ImageBackground, ScrollView, StatusBar, ActivityIndicator } from "react-native";
 import { Switch, TextInput } from "react-native-gesture-handler";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const App = () => {
   const [username, setUsername] = useState("");
@@ -8,13 +9,25 @@ const App = () => {
   const [phone, setPhone] = useState("");
   const [isNotificationEnabled, setIsNotificationEnabled ] = useState(false);
   const [isReciveNotificationEnabled, setReciveIsNotificationEnabled ] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
     console.log("submitted:", { username, email, phone });
+    setLoading(true); 
+    setTimeout(() => {
+      setLoading(false);
+      console.log("submitted:", {username, email, phone});
+    }, 2000);
   }
 
   return (
     <View style={styles.container}>
+      <StatusBar
+              backgroundColor={'green'}
+              barStyle={'light-content'}
+
+            ></StatusBar>
+
       <ImageBackground 
         style={styles.imgBackground} 
         source={{uri: "https://i.postimg.cc/VkN3YqmQ/yellow-background.avif"}}  
@@ -23,6 +36,7 @@ const App = () => {
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           {/* First Card */}
           <View style={styles.card}>
+            
             <View style={styles.logoContainer}>
               <Image 
                 style={styles.logo} 
@@ -78,12 +92,18 @@ const App = () => {
               </Switch>
               </View>
 
-              <TouchableOpacity 
+              {loading ? (
+                <ActivityIndicator size="large" color="#2563eb" />
+              ): (
+                <TouchableOpacity 
                 style={[styles.button, { backgroundColor: "#2563eb" }]}
                 onPress={handleSubmit}
               >
                 <Text style={styles.buttonText}>Submit</Text>
               </TouchableOpacity>
+              )}
+
+             
             </View>
           </View>
 
@@ -144,12 +164,17 @@ const App = () => {
               </Switch>
               </View>
 
-              <TouchableOpacity 
+              {loading ? (
+                <ActivityIndicator size="large" color="#2563eb" />
+              ): (
+                <TouchableOpacity 
                 style={[styles.button, { backgroundColor: "#2563eb" }]}
                 onPress={handleSubmit}
               >
                 <Text style={styles.buttonText}>Submit</Text>
               </TouchableOpacity>
+              )}
+
             </View>
           </View>
         </ScrollView>
