@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Text, StyleSheet, View, TouchableOpacity, Image, ImageBackground, ScrollView } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+import { Switch, TextInput } from "react-native-gesture-handler";
 
 const App = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [isNotificationEnabled, setIsNotificationEnabled ] = useState(false);
+  const [isReciveNotificationEnabled, setReciveIsNotificationEnabled ] = useState(false);
 
   const handleSubmit = () => {
     console.log("submitted:", { username, email, phone });
@@ -65,6 +67,17 @@ const App = () => {
                 />
               </View>
 
+              <View>
+                <Text style={styles.label}>Receive Notification :</Text>
+                <Switch 
+                 value={isNotificationEnabled}
+                 onValueChange={setIsNotificationEnabled}
+                 thumbColor={isNotificationEnabled ? '#f5dd4b' : '#f4f3f4'}
+                 trackColor={{false: "#767577", true: "#81b0ff"}}
+                >
+              </Switch>
+              </View>
+
               <TouchableOpacity 
                 style={[styles.button, { backgroundColor: "#2563eb" }]}
                 onPress={handleSubmit}
@@ -118,6 +131,17 @@ const App = () => {
                   placeholderTextColor="#999"
                   keyboardType="phone-pad"
                 />
+              </View>
+
+              <View style={styles.inputContainer}>
+                <Text style={styles.label}>Receive Notification :</Text>
+                <Switch 
+                 value={isReciveNotificationEnabled}
+                 onValueChange={setReciveIsNotificationEnabled}
+                 thumbColor={isReciveNotificationEnabled ? '#f5dd4b' : '#f4f3f4'}
+                 trackColor={{false: "#767577", true: "#81b0ff"}}
+                >
+              </Switch>
               </View>
 
               <TouchableOpacity 
