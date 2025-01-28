@@ -10,6 +10,7 @@ const App = () => {
   const [isNotificationEnabled, setIsNotificationEnabled ] = useState(false);
   const [isReciveNotificationEnabled, setReciveIsNotificationEnabled ] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false); 
 
   const handleSubmit = () => {
     console.log("submitted:", { username, email, phone });
@@ -17,6 +18,7 @@ const App = () => {
     setTimeout(() => {
       setLoading(false);
       console.log("submitted:", {username, email, phone});
+      setIsModalVisible(true);  
     }, 2000);
   }
 
@@ -25,7 +27,6 @@ const App = () => {
       <StatusBar
               backgroundColor={'green'}
               barStyle={'light-content'}
-
             ></StatusBar>
 
       <ImageBackground 
@@ -103,80 +104,24 @@ const App = () => {
               </TouchableOpacity>
               )}
 
-             
             </View>
           </View>
 
-          {/* Second Card */}
-          <View style={[styles.card, styles.secondCard]}>
-            <View style={styles.logoContainer}>
-              <Image 
-                style={[styles.logo]} 
-                source={{uri: "https://i.postimg.cc/9fDjCvyj/boy-logo.jpg"}}
-              />
-            </View>
-
-            <View style={styles.formContainer}>
-              <View style={styles.inputContainer}>
-                <Text style={styles.label}>Name :</Text> 
-                <TextInput  
-                  style={styles.input}
-                  placeholder="enter name"
-                  value={username}
-                  onChangeText={setUsername}
-                  placeholderTextColor="#999"
-                />
-              </View>
-
-              <View style={styles.inputContainer}>
-                <Text style={styles.label}>Email :</Text>
-                <TextInput  
-                  style={styles.input}
-                  placeholder="enter email"
-                  value={email}
-                  onChangeText={setEmail}
-                  placeholderTextColor="#999"
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                />
-              </View>
-
-              <View style={styles.inputContainer}>
-                <Text style={styles.label}>Phone No. :</Text>
-                <TextInput  
-                  style={styles.input}
-                  placeholder="enter Phone No."
-                  value={phone}
-                  onChangeText={setPhone}
-                  placeholderTextColor="#999"
-                  keyboardType="phone-pad"
-                />
-              </View>
-
-              <View style={styles.inputContainer}>
-                <Text style={styles.label}>Receive Notification :</Text>
-                <Switch 
-                 value={isReciveNotificationEnabled}
-                 onValueChange={setReciveIsNotificationEnabled}
-                 thumbColor={isReciveNotificationEnabled ? '#f5dd4b' : '#f4f3f4'}
-                 trackColor={{false: "#767577", true: "#81b0ff"}}
-                >
-              </Switch>
-              </View>
-
-              {loading ? (
-                <ActivityIndicator size="large" color="#2563eb" />
-              ): (
+  
+          {isModalVisible && (
+            <View style={styles.modalOverlay}>
+              <View style={styles.modalContainer}>
+                <Text style={styles.modalText}>Form Submitted Successfully!</Text>
                 <TouchableOpacity 
-                style={[styles.button, { backgroundColor: "#2563eb" }]}
-                onPress={handleSubmit}
-              >
-                <Text style={styles.buttonText}>Submit</Text>
-              </TouchableOpacity>
-              )}
-
+                  style={[styles.button, { backgroundColor: "#2563eb" }]}
+                  onPress={() => setIsModalVisible(false)} // Close the modal
+                >
+                  <Text style={styles.buttonText}>Close</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
+          )}
+
         </ScrollView>
       </ImageBackground>
     </View>
@@ -209,9 +154,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-  },
-  secondCard: {
-    backgroundColor: "#f8fafc",
   },
   logoContainer: {
     alignItems: "center",
@@ -255,6 +197,29 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 16,
     fontWeight: "600",
+  },
+  modalOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)", 
+  },
+  modalContainer: {
+    width: 300,
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  modalText: {
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 20,
+    color: "#333",
   }
 });
 
