@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Text, StyleSheet, View, TouchableOpacity, Image, ImageBackground, ScrollView, StatusBar, ActivityIndicator } from "react-native";
-import { Switch, TextInput } from "react-native-gesture-handler";
+import { Pressable, Switch, TextInput } from "react-native-gesture-handler";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const App = () => {
@@ -96,12 +96,16 @@ const App = () => {
               {loading ? (
                 <ActivityIndicator size="large" color="#2563eb" />
               ): (
-                <TouchableOpacity 
-                style={[styles.button, { backgroundColor: "#2563eb" }]}
+                <Pressable style={({pressed}) =>[
+                  styles.button,
+                  { backgroundColor: pressed ? "#1D4ED8" : "#2563eb" },
+                ]}
                 onPress={handleSubmit}
-              >
+                >
+                  
+
                 <Text style={styles.buttonText}>Submit</Text>
-              </TouchableOpacity>
+                </Pressable> 
               )}
 
             </View>
