@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Text, StyleSheet, View, TouchableOpacity, Image, ImageBackground, ScrollView, StatusBar, ActivityIndicator } from "react-native";
-import { Pressable, Switch, TextInput } from "react-native-gesture-handler";
+import { FlatList, Pressable, Switch, TextInput } from "react-native-gesture-handler";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const App = () => {
@@ -11,14 +11,26 @@ const App = () => {
   const [isReciveNotificationEnabled, setReciveIsNotificationEnabled ] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false); 
+  const [submittedUsers, setSubmittedUsers] = useState([]);
 
   const handleSubmit = () => {
-    console.log("submitted:", { username, email, phone });
-    setLoading(true); 
+
+    if(!username || !email || !phone) return; 
+
+    const newUser = {id: Date.now().toString(), username, email, phone};
+    setLoading(true);
+    
+
+    // console.log("submitted:", { username, email, phone });
+    // setLoading(true); 
     setTimeout(() => {
       setLoading(false);
+      setSubmittedUsers([...submittedUsers,newUser]);
       console.log("submitted:", {username, email, phone});
       setIsModalVisible(true);  
+      setUsername("");
+      setEmail("");
+      setPhone("");
     }, 2000);
   }
 
@@ -109,6 +121,20 @@ const App = () => {
               )}
 
             </View>
+          </View>
+
+          <View style={styles.card}>
+            <Text style={styles.label}>Submitted User :</Text>
+            <FlatList 
+              data = {submittedUsers}
+              keyExtractor = {(item) => item.id}
+              renderItem={({item}) => (
+                <View style={styles.userItem}>
+                  <Text style={styles.userText}>{item?.username} - {item?.email} - {item?.phone}</Text>
+                </View>
+              )} />
+
+  
           </View>
 
   
@@ -224,7 +250,16 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginBottom: 20,
     color: "#333",
-  }
+  },
+
+  userItem: { 
+    padding: 10, 
+    borderBottomWidth: 1, 
+    borderBottomColor: "#ddd"
+   },
+
+  userText: { 
+    fontSize: 16, color: "#333" },
 });
 
 export default App;
