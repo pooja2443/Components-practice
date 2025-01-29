@@ -50,8 +50,7 @@ const App = () => {
   
 
   return (
-    <KeyboardAvoidingView>
-      <View style={styles.container}>
+    <View style={styles.container}>
       <StatusBar
               backgroundColor={'green'}
               barStyle={'light-content'}
@@ -146,7 +145,7 @@ const App = () => {
               keyExtractor = {(item) => item.id}
               renderItem={({item}) => (
                 <View style={styles.userItem}>
-                  <Text style={styles.userText}>{item?.username} - {item?.email} - {item?.phone}</Text>
+                  <Text style={styles.userText}><b>name:</b>{item?.username}<br></br><b>email:</b> {item?.email} <br></br><b>phone:</b> {item?.phone}</Text>
                 </View>
               )} />
 
@@ -171,8 +170,6 @@ const App = () => {
         </ScrollView>
       </ImageBackground>
     </View>
-    </KeyboardAvoidingView>
-    
   );
 }
 
