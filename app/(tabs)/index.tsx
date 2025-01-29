@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, View, TouchableOpacity, Image, ImageBackground, ScrollView, StatusBar, ActivityIndicator } from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity, Image, ImageBackground, ScrollView, StatusBar, ActivityIndicator, KeyboardAvoidingView } from "react-native";
 import { FlatList, Pressable, Switch, TextInput } from "react-native-gesture-handler";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
@@ -50,7 +50,8 @@ const App = () => {
   
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView>
+      <View style={styles.container}>
       <StatusBar
               backgroundColor={'green'}
               barStyle={'light-content'}
@@ -170,6 +171,8 @@ const App = () => {
         </ScrollView>
       </ImageBackground>
     </View>
+    </KeyboardAvoidingView>
+    
   );
 }
 
