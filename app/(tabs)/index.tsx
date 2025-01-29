@@ -13,9 +13,22 @@ const App = () => {
   const [isModalVisible, setIsModalVisible] = useState(false); 
   const [submittedUsers, setSubmittedUsers] = useState([]);
 
+  const isFormValid = username && email && phone;
+
   const handleSubmit = () => {
 
-    if(!username || !email || !phone) return; 
+    if(!username) {
+      alert("please enter your name");
+      return;
+    }; 
+    if(!email) {
+      alert("please enter your email");
+      return;
+    };
+    if(!phone) {
+      alert("please enter your phone");
+      return;
+    };
 
     const newUser = {id: Date.now().toString(), username, email, phone};
     setLoading(true);
@@ -33,6 +46,8 @@ const App = () => {
       setPhone("");
     }, 2000);
   }
+
+  
 
   return (
     <View style={styles.container}>
@@ -112,7 +127,7 @@ const App = () => {
                   styles.button,
                   { backgroundColor: pressed ? "#1D4ED8" : "#2563eb" },
                 ]}
-                onPress={handleSubmit}
+                onPress={handleSubmit} 
                 >
                   
 
