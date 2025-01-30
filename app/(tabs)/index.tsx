@@ -11,7 +11,8 @@ const App = () => {
   const [isReciveNotificationEnabled, setReciveIsNotificationEnabled ] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false); 
-  const [submittedUsers, setSubmittedUsers] = useState([]);
+  const [submittedUsers, setSubmittedUsers] = useState<
+    { id: string; username: string; email: string; phone: string }[]>([]);
 
   const isFormValid = username && email && phone;
 
@@ -32,10 +33,7 @@ const App = () => {
 
     const newUser = {id: Date.now().toString(), username, email, phone};
     setLoading(true);
-    
-
-    // console.log("submitted:", { username, email, phone });
-    // setLoading(true); 
+  
     setTimeout(() => {
       setLoading(false);
       setSubmittedUsers([...submittedUsers,newUser]);
@@ -46,8 +44,6 @@ const App = () => {
       setPhone("");
     }, 2000);
   }
-
-  
 
   return (
     <View style={styles.container}>
@@ -148,8 +144,6 @@ const App = () => {
                   <Text style={styles.userText}><b>name:</b>{item?.username}<br></br><b>email:</b> {item?.email} <br></br><b>phone:</b> {item?.phone}</Text>
                 </View>
               )} />
-
-  
           </View>
 
   
